@@ -37,4 +37,14 @@ async function receberParametrosDoUsuario() {
   dadosDeConversao.saida.moeda = await perguntar(`Qual a moeda para conversão do valor? `)
 }
 
-receberParametrosDoUsuario()
+async function executarPrograma() {
+  console.info(`CONVERSOR DE MOEDAS`)
+  console.info(`^^^^^^^^^^^^^^^^^^^`)
+
+  await receberParametrosDoUsuario()
+
+  console.info(`_______________`)
+  console.info(`FIM DO PROGRAMA`)
+}
+
+executarPrograma()
