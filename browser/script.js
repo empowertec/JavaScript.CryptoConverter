@@ -131,11 +131,11 @@ function calcularResultado() {
   document.querySelector('.campo.saida .valor').value = valorDeSaida.toFixed(casasDecimais.valorDeSaida)
 }
 
-async function executarPrograma() {
+async function converter() {
   receberParametrosDoUsuario()
   await receberCotacaoDasMoedas()
   preencherCamposDasMoedas()
   calcularResultado()
 }
 
-executarPrograma()
+converter()

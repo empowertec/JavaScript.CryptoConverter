@@ -15,8 +15,8 @@
         De:
       </label>
       <div class="controles">
-        <input type="text" value="1" class="valor" />
-        <select class="moeda">
+        <input type="text" value="1" class="valor" onchange="converter()" />
+        <select class="moeda" onchange="converter()">
           <option>BTC</option>
         </select>
       </div>
@@ -27,7 +27,7 @@
       </label>
       <div class="controles">
         <input type="text" readonly class="valor" />
-        <select class="moeda">
+        <select class="moeda" onchange="converter()">
           <option>USDT</option>
         </select>
       </div>
