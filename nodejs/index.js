@@ -25,6 +25,7 @@ const dadosDeConversao = {
   cotacao: {
     btcParaUsd: undefined,
     usdParaBrl: undefined,
+    moedasParaBtc: []
   },
   entrada: {
     valor: undefined,
@@ -65,6 +66,25 @@ async function receberCotacaoDasMoedas() {
 
   const usdParaBrl = moedas.find(cotacao => cotacao.symbol === "USDTBRL")
   dadosDeConversao.cotacao.usdParaBrl = parseFloat(usdParaBrl.lastPrice)
+
+  const paraBtc = moedas
+    .filter(cotacao => cotacao.symbol.endsWith("BTC"))
+    .map(cotacao => ({
+      moeda: cotacao.symbol.substring(0, cotacao.symbol.indexOf("BTC")),
+      valor: parseFloat(cotacao.lastPrice)
+    }))
+
+  const deBtc = moedas
+    .filter(cotacao => cotacao.symbol.startsWith("BTC"))
+    .map(cotacao => ({
+      moeda: cotacao.symbol.substring(3),
+      valor: 1 / parseFloat(cotacao.lastPrice)
+    }))
+
+  dadosDeConversao.cotacao.moedasParaBtc = [
+    ...paraBtc,
+    ...deBtc
+  ]
 }
 
 async function executarPrograma() {
