@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #393945;
+  color: #d1d3d3;
+  font-family: monospace;
+  font-size: 18px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main {
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 1em;
+}
+
+.campo {
+  margin: 1em;
+}
+
+.campo label {
+  font-size: 1.5em;
+}
+
+.campo .controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.campo .controles input[type="text"],
+.campo .controles select {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+.campo .controles input[type="text"] {
+  width: 65%
+}
+
+.campo .controles select {
+  width: 25%
+}
+
+.campo .controles input[readonly] {
+  background-color: #d0d0df;
+}
