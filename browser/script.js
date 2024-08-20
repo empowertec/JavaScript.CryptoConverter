@@ -63,7 +63,33 @@ async function receberCotacaoDasMoedas() {
   ]
 }
 
-async function calcularResultado() {
+function preencherCampoDeMoeda(select, moedas) {
+  const valorOriginal = select.value
+  select.innerHTML = ""
+  moedas.forEach(moeda => {
+    const option = document.createElement('option');
+    option.value = moeda;
+    option.textContent = moeda;
+    select.appendChild(option);
+  });
+  select.value = valorOriginal
+}
+
+function preencherCamposDasMoedas() {
+  let moedas = dadosDeConversao.cotacao.moedasParaBtc
+    .map(cotacao => cotacao.moeda)
+    .filter(moeda => moeda.trim())
+  moedas.push('BTC')
+
+  moedas = moedas
+    .filter((moeda, index) => moedas.indexOf(moeda) === index)
+    .sort()
+
+  preencherCampoDeMoeda(document.querySelector('.campo.entrada .moeda'), moedas)
+  preencherCampoDeMoeda(document.querySelector('.campo.saida .moeda'), moedas)
+}
+
+function calcularResultado() {
   const valorDeEntrada = parseFloat(dadosDeConversao.entrada.valor)
   const moedaDeEntrada = (dadosDeConversao.entrada.moeda || "BTC").toUpperCase()
   const moedaDeSaida = (dadosDeConversao.saida.moeda || "USDT").toUpperCase()
@@ -72,8 +98,6 @@ async function calcularResultado() {
     console.error(`ERRO: Valor de entrada precisa ser numérico`)
     return
   }
-
-  await receberCotacaoDasMoedas()
 
   let valorDeSaida
   if (moedaDeEntrada === "BTC" && moedaDeSaida === "USDT") {
@@ -109,7 +133,9 @@ async function calcularResultado() {
 
 async function executarPrograma() {
   receberParametrosDoUsuario()
-  await calcularResultado()
+  await receberCotacaoDasMoedas()
+  preencherCamposDasMoedas()
+  calcularResultado()
 }
 
 executarPrograma()
