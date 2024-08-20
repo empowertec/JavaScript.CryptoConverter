@@ -105,8 +105,20 @@ async function calcularResultado() {
   } else if (moedaDeEntrada === "USDT" && moedaDeSaida === "BRL") {
     valorDeSaida = valorDeEntrada * dadosDeConversao.cotacao.usdParaBrl
   } else {
-    // TODO: Falta implementar
-    valorDeSaida = "???"
+    const cotacaoDaMoedaDeEntradaParaBtc = moedaDeEntrada === "BTC" ? 1 : dadosDeConversao.cotacao.moedasParaBtc.find(cotacao => cotacao.moeda === moedaDeEntrada)?.valor
+    if (cotacaoDaMoedaDeEntradaParaBtc === undefined) {
+      console.error(`ERRO: Moeda de entrada "${moedaDeEntrada}" não encontrada`)
+    }
+    const cotacaoDaMoedaDeSaidaParaBtc = moedaDeSaida === "BTC" ? 1 : dadosDeConversao.cotacao.moedasParaBtc.find(cotacao => cotacao.moeda === moedaDeSaida)?.valor
+    if (cotacaoDaMoedaDeSaidaParaBtc === undefined) {
+      console.error(`ERRO: Moeda de saída "${moedaDeSaida}" não encontrada`)
+    }
+    if (cotacaoDaMoedaDeEntradaParaBtc === undefined || cotacaoDaMoedaDeSaidaParaBtc === undefined) {
+      return
+    }
+
+    const razao = cotacaoDaMoedaDeEntradaParaBtc / cotacaoDaMoedaDeSaidaParaBtc
+    valorDeSaida = valorDeEntrada * razao
   }
 
   console.info(`RESULTADO: ${valorDeEntrada} ${moedaDeEntrada} -> ${valorDeSaida} ${moedaDeSaida}`)
