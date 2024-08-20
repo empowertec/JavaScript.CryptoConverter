@@ -103,18 +103,13 @@ async function calcularResultado() {
     valorDeSaida: calcularCasasDecimais(moedaDeSaida),
   }
 
-  console.info(`RESULTADO: ${valorDeEntrada.toFixed(casasDecimais.valorDeEntrada)} ${moedaDeEntrada} -> ${valorDeSaida.toFixed(casasDecimais.valorDeSaida)} ${moedaDeSaida}`)
+  document.querySelector('.campo.entrada .valor').value = valorDeEntrada.toFixed(casasDecimais.valorDeEntrada)
+  document.querySelector('.campo.saida .valor').value = valorDeSaida.toFixed(casasDecimais.valorDeSaida)
 }
 
 async function executarPrograma() {
-  console.info(`CONVERSOR DE MOEDAS`)
-  console.info(`^^^^^^^^^^^^^^^^^^^`)
-
   receberParametrosDoUsuario()
   await calcularResultado()
-
-  console.info(`_______________`)
-  console.info(`FIM DO PROGRAMA`)
 }
 
 executarPrograma()
