@@ -22,6 +22,10 @@ async function perguntar(pergunta) {
 }
 
 const dadosDeConversao = {
+  cotacao: {
+    btcParaUsd: undefined,
+    usdParaBrl: undefined,
+  },
   entrada: {
     valor: undefined,
     moeda: undefined,
@@ -53,12 +57,22 @@ async function carregarDadosDeConversaoDeMoedas() {
   }
 }
 
+async function receberCotacaoDasMoedas() {
+  const moedas = await carregarDadosDeConversaoDeMoedas()
+
+  const btcParaUsd = moedas.find(cotacao => cotacao.symbol === "BTCUSDT")
+  dadosDeConversao.cotacao.btcParaUsd = parseFloat(btcParaUsd.lastPrice)
+
+  const usdParaBrl = moedas.find(cotacao => cotacao.symbol === "USDTBRL")
+  dadosDeConversao.cotacao.usdParaBrl = parseFloat(usdParaBrl.lastPrice)
+}
+
 async function executarPrograma() {
   console.info(`CONVERSOR DE MOEDAS`)
   console.info(`^^^^^^^^^^^^^^^^^^^`)
 
   await receberParametrosDoUsuario()
-  await carregarDadosDeConversaoDeMoedas()
+  await receberCotacaoDasMoedas()
 
   console.info(`_______________`)
   console.info(`FIM DO PROGRAMA`)
