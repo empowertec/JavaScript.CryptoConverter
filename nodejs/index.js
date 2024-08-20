@@ -98,6 +98,18 @@ async function calcularResultado() {
   }
 
   await receberCotacaoDasMoedas()
+
+  let valorDeSaida
+  if (moedaDeEntrada === "BTC" && moedaDeSaida === "USDT") {
+    valorDeSaida = valorDeEntrada * dadosDeConversao.cotacao.btcParaUsd
+  } else if (moedaDeEntrada === "USDT" && moedaDeSaida === "BRL") {
+    valorDeSaida = valorDeEntrada * dadosDeConversao.cotacao.usdParaBrl
+  } else {
+    // TODO: Falta implementar
+    valorDeSaida = "???"
+  }
+
+  console.info(`RESULTADO: ${valorDeEntrada} ${moedaDeEntrada} -> ${valorDeSaida} ${moedaDeSaida}`)
 }
 
 async function executarPrograma() {
