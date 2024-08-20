@@ -87,12 +87,25 @@ async function receberCotacaoDasMoedas() {
   ]
 }
 
+async function calcularResultado() {
+  const valorDeEntrada = parseFloat(dadosDeConversao.entrada.valor)
+  const moedaDeEntrada = (dadosDeConversao.entrada.moeda || "BTC").toUpperCase()
+  const moedaDeSaida = (dadosDeConversao.saida.moeda || "USDT").toUpperCase()
+
+  if (isNaN(valorDeEntrada)) {
+    console.error(`ERRO: Valor de entrada precisa ser numérico`)
+    return
+  }
+
+  await receberCotacaoDasMoedas()
+}
+
 async function executarPrograma() {
   console.info(`CONVERSOR DE MOEDAS`)
   console.info(`^^^^^^^^^^^^^^^^^^^`)
 
   await receberParametrosDoUsuario()
-  await receberCotacaoDasMoedas()
+  await calcularResultado()
 
   console.info(`_______________`)
   console.info(`FIM DO PROGRAMA`)
