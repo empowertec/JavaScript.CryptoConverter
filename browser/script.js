@@ -31,6 +31,10 @@ async function carregarDadosDeConversaoDeMoedas() {
 }
 
 async function receberCotacaoDasMoedas() {
+  if (dadosDeConversao.cotacao.moedasParaBtc.length > 0) {
+    return
+  }
+
   const moedas = await carregarDadosDeConversaoDeMoedas()
 
   const btcParaUsd = moedas.find(cotacao => cotacao.symbol === "BTCUSDT")
