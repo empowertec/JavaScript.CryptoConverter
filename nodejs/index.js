@@ -37,11 +37,19 @@ async function receberParametrosDoUsuario() {
   dadosDeConversao.saida.moeda = await perguntar(`Qual a moeda para conversão do valor? `)
 }
 
+async function carregarDadosDeConversaoDeMoedas() {
+  const url = "https://api2.binance.com/api/v3/ticker/24hr"
+  const resposta = await fetch(url)
+  const json = await resposta.json()
+  return json
+}
+
 async function executarPrograma() {
   console.info(`CONVERSOR DE MOEDAS`)
   console.info(`^^^^^^^^^^^^^^^^^^^`)
 
   await receberParametrosDoUsuario()
+  await carregarDadosDeConversaoDeMoedas()
 
   console.info(`_______________`)
   console.info(`FIM DO PROGRAMA`)
