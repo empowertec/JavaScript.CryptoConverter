@@ -38,10 +38,19 @@ async function receberParametrosDoUsuario() {
 }
 
 async function carregarDadosDeConversaoDeMoedas() {
-  const url = "https://api2.binance.com/api/v3/ticker/24hr"
-  const resposta = await fetch(url)
-  const json = await resposta.json()
-  return json
+  const fs = require('fs')
+  const arquivoDosUltimosDadosCarregados = __dirname + '/ultimaCotacaoDasMoedas.json'
+  try {
+    const url = "https://api2.binance.com/api/v3/ticker/24hr"
+    const resposta = await fetch(url)
+    const json = await resposta.json()
+    fs.writeFileSync(arquivoDosUltimosDadosCarregados, JSON.stringify(json, null, 2))
+    return json
+  } catch (erro) {
+    const ultimosDadosCarregados = fs.readFileSync(arquivoDosUltimosDadosCarregados).toString()
+    const json = JSON.parse(ultimosDadosCarregados)
+    return json
+  }
 }
 
 async function executarPrograma() {
